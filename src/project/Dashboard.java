@@ -50,40 +50,40 @@ public class Dashboard {
 				do {
 					x = genRandom();
 					y = genRandom();
-				} while (!canPutIt(x, y));
-			} while (!setShip(x, y));
+				} while (!canPutIt(x, y, DASHBOARDS_SHIPS_MACHINE));
+			} while (!setShip(x, y, DASHBOARDS_SHIPS_MACHINE));
 			
 		}
 	}
 
-	boolean canPutIt(int i, int j) {
+	boolean canPutIt(int i, int j, char[][] dashboard) {
 		// Variable that store if the ship can be placed
 		boolean can = true;
 
 		// We check that we do not go to the left
 		if ((i - 1) >= 0) {
-			if (DASHBOARDS_SHIPS_MACHINE[i-1][j] == 'S') {
+			if (dashboard[i-1][j] == 'S') {
 				can = false;
 			}
 		}
 
 		// We check that we don't go out on top
-		if ((i + 1) < DASHBOARDS_SHIPS_MACHINE.length) {
-			if (DASHBOARDS_SHIPS_MACHINE[i+1][j] == 'S') {
+		if ((i + 1) < dashboard.length) {
+			if (dashboard[i+1][j] == 'S') {
 				can = false;
 			}
 		}
 
 		// We check that we do not go to the rigth
 		if ((j - 1) >= 0) {
-			if (DASHBOARDS_SHIPS_MACHINE[i][j-1] == 'S') {
+			if (dashboard[i][j-1] == 'S') {
 				can = false;
 			}
 		}
 
 		// We check that we don't go out on bottom
-		if ((j + 1) < DASHBOARDS_SHIPS_MACHINE[0].length) {
-			if (DASHBOARDS_SHIPS_MACHINE[i][j+1] == 'S') {
+		if ((j + 1) < dashboard[0].length) {
+			if (dashboard[i][j+1] == 'S') {
 				can = false;
 			}
 		}
@@ -91,11 +91,11 @@ public class Dashboard {
 		return can;
 	}
 
-	boolean setShip(int x, int y) {
+	boolean setShip(int x, int y, char[][] dashboard) {
 		boolean putted = false;
 		
-		if (DASHBOARDS_SHIPS_MACHINE[x][y] == '*') {
-			 DASHBOARDS_SHIPS_MACHINE[x][y] = 'S';
+		if (dashboard[x][y] == '*') {
+			dashboard[x][y] = 'S';
 			 putted = true;
 		 }
 		
