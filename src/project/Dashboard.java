@@ -45,62 +45,63 @@ public class Dashboard {
 		int y;
 
 		for (int i = 0; i < machineShips; i++) {
-
-			/*x = genRandom();
-			y = genRandom();
-
-			/*
-			 * Para obtener el valor absoluto Math.abs
-			 
-
-			do {
-
-			} while (!isHere(x, y));*/
 			
 			do {
-				x = genRandom();
-				y = genRandom();
-			} while (!canPutIt(x, y));
-
-			System.out.println(x + " " + y);
+				do {
+					x = genRandom();
+					y = genRandom();
+				} while (!canPutIt(x, y));
+			} while (!setShip(x, y));
+			
 		}
 	}
 
 	boolean canPutIt(int i, int j) {
 		// Variable that store if the ship can be placed
-		boolean can = false;
+		boolean can = true;
 
 		// We check that we do not go to the left
 		if ((i - 1) >= 0) {
-			if (DASHBOARDS_SHIPS_MACHINE[i-1][j] != 'S') {
-				can = true;
+			if (DASHBOARDS_SHIPS_MACHINE[i-1][j] == 'S') {
+				can = false;
 			}
 		}
 
 		// We check that we don't go out on top
 		if ((i + 1) < DASHBOARDS_SHIPS_MACHINE.length) {
-			if (DASHBOARDS_SHIPS_MACHINE[i+1][j] != 'S') {
-				can = true;
+			if (DASHBOARDS_SHIPS_MACHINE[i+1][j] == 'S') {
+				can = false;
 			}
 		}
 
 		// We check that we do not go to the rigth
 		if ((j - 1) >= 0) {
-			if (DASHBOARDS_SHIPS_MACHINE[i][j-1] != 'S') {
-				can = true;
+			if (DASHBOARDS_SHIPS_MACHINE[i][j-1] == 'S') {
+				can = false;
 			}
 		}
 
 		// We check that we don't go out on bottom
 		if ((j + 1) < DASHBOARDS_SHIPS_MACHINE[0].length) {
-			if (DASHBOARDS_SHIPS_MACHINE[i][j+1] != 'S') {
-				can = true;
+			if (DASHBOARDS_SHIPS_MACHINE[i][j+1] == 'S') {
+				can = false;
 			}
 		}
 
 		return can;
 	}
 
+	boolean setShip(int x, int y) {
+		boolean putted = false;
+		
+		if (DASHBOARDS_SHIPS_MACHINE[x][y] == '*') {
+			 DASHBOARDS_SHIPS_MACHINE[x][y] = 'S';
+			 putted = true;
+		 }
+		
+		return putted;
+	}
+	
 	/**
 	 * Method that checks if a ship is in the current position
 	 * 
