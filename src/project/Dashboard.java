@@ -35,8 +35,7 @@ public class Dashboard {
 	int machineShips = 4;
 
 	/**
-	 * 
-	 *  
+	 * Method that set the ships into dashboards 
 	 */
 	void setShips() {
 
@@ -56,45 +55,61 @@ public class Dashboard {
 		}
 	}
 
-	boolean canPutIt(int i, int j, char[][] dashboard) {
+	/**
+	 * Method that checks if the ship can be placed into the dashboard
+	 * 
+	 * @param y Coordinate Y
+	 * @param x Coordinate X
+	 * @param dashboard Char array that represents the dashboard
+	 * @return Return true if the ship can be placed or false if it not
+	 */
+	boolean canPutIt(int y, int x, char[][] dashboard) {
 		// Variable that store if the ship can be placed
 		boolean can = true;
 
 		// We check that we do not go to the left
-		if ((i - 1) >= 0) {
-			if (dashboard[i-1][j] == 'S') {
+		if ((y - 1) >= 0) {
+			if (dashboard[y-1][x] == 'S') {
 				can = false;
 			}
 		}
 
 		// We check that we don't go out on top
-		if ((i + 1) < dashboard.length) {
-			if (dashboard[i+1][j] == 'S') {
+		if ((y + 1) < dashboard.length) {
+			if (dashboard[y+1][x] == 'S') {
 				can = false;
 			}
 		}
 
 		// We check that we do not go to the rigth
-		if ((j - 1) >= 0) {
-			if (dashboard[i][j-1] == 'S') {
+		if ((x - 1) >= 0) {
+			if (dashboard[y][x-1] == 'S') {
 				can = false;
 			}
 		}
 
 		// We check that we don't go out on bottom
-		if ((j + 1) < dashboard[0].length) {
-			if (dashboard[i][j+1] == 'S') {
+		if ((x + 1) < dashboard[0].length) {
+			if (dashboard[y][x+1] == 'S') {
 				can = false;
 			}
 		}
-
+		
+		// Return the boolean
 		return can;
 	}
 
+	/**
+	 * Method that place the ship into the dashboard
+	 * @param x Coordinate X
+	 * @param y Coordinate Y
+	 * @param dashboard Char array that represents the dashboard
+	 * @return Return true if the ship was placed or false if it wasn't
+	 */
 	boolean setShip(int x, int y, char[][] dashboard) {
 		boolean putted = false;
 		
-		if (dashboard[x][y] == '*') {
+		if (dashboard[x][y] == '^') {
 			dashboard[x][y] = 'S';
 			 putted = true;
 		 }
@@ -141,10 +156,23 @@ public class Dashboard {
 		return pos;
 	}
 	
+	public int attack(int y, int x, char[][] dashboard) {
+		int hit = 0;
+		
+		if (dashboard[y][x] == 'S') {
+			hit = 1;
+			dashboard[y][x] = 'H';
+		} else if (dashboard[y][x] == 'H') {
+			hit = 2;
+		}
+		
+		return hit;
+	}
+	
 	public static void dashboardInit(char[][] dashboard) {
 		for (int i = 0; i < dashboard.length; i++) {
 			for (int j = 0; j < dashboard[i].length; j++) {
-				dashboard[i][j] = '*';
+				dashboard[i][j] = '^';
 			}
 		}
 	}
